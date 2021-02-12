@@ -1,2 +1,74 @@
 /* Add some css styles based on the tutorial at javascript.info: introduction to browser events
  https://javascript.info/introduction-browser-events */
+
+body {
+    margin:40px auto;
+    max-width:650px;
+    line-height:1.6;
+    font-size:18px;
+    color:#444;
+    text-align: center;
+    padding: 0;
+    background-color: rgb(141, 180, 253)
+}
+
+h1,h2,h3 { line-height:1.2 }
+
+h1 {
+    font-size: 3rem;
+    text-align: center;
+    font-weight: 75;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: 2rem;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+p {
+    font-size: 1rem;
+}
+
+.header {
+    margin-bottom: 10px;
+}
+
+.main, .header {
+    background-color:rgb(202, 202, 202);
+    padding: 1%;
+}
+
+.carousel-holder {
+    background-color: rgb(153, 153, 153);
+    padding: 20px;
+    text-align: center;
+    border: 2px solid #5D6063;
+    width: 500px;
+    box-sizing: border-box;
+    margin: 20px auto;
+    border-radius: 15px;
+
+    display: flex;
+}
+
+.slider > * {
+    padding: 0px 5px;
+    /* margin: 10px auto; */
+}
+
+.button {
+    color: #FFF;
+    background-color: #5995DA;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    border: 2px solid #5D6063;
+    border-radius: 15px;
+    width: 50px;
+    height: 50px;
+    box-sizing: border-box;
+    margin: 25px auto;
+}
