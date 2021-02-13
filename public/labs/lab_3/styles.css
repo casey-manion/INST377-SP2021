@@ -54,9 +54,18 @@ p {
     display: flex;
 }
 
-.slider > * {
+.carousel-holder > * {
     padding: 0px 5px;
-    /* margin: 10px auto; */
+}
+
+.carousel-holder .block {
+    opacity: 0;
+    display: none;
+}
+
+.carousel-holder .block.active {
+    opacity: 1;
+    display: contents;
 }
 
 .button {
@@ -71,4 +80,16 @@ p {
     height: 50px;
     box-sizing: border-box;
     margin: 25px auto;
+}
+
+.button:hover,
+.button:visited:hover {
+    color: #FFF;
+    background-color: #76AEED;
+}
+
+.button:active,
+.button:visited:active {
+    color: #FFF;
+    background-color: #5995DA;
 }
