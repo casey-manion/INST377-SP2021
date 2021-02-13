@@ -15,17 +15,22 @@ function carousel_slider() {
     prevBtn.onclick = (event) => {
         event.preventDefault();
 
-        images[x].classlist.remove("active");
+        images[y].classlist.remove("active");
 
-        if (y <= 0) {
-            y = images.length - 1;
-            x--;
-        }
-        else if (x <= 0) {
+        if (x == 0) {
             x = images.length - 1;
             y--;
         }
-        images[y].classList.add("active");
+        else if (y == 0) {
+            y = images.length - 1;
+            x--;
+        }
+        else {
+            x--;
+            y--;
+        }
+
+        images[x].classList.add("active");
     };
 
     nextBtn.onclick = (event) => {
@@ -39,7 +44,7 @@ function carousel_slider() {
         }
         else if (x >= images.length) {
             x = 0;
-            y++
+            y++;
         }
         else {
             x++;
