@@ -5,53 +5,50 @@ function carousel_slider() {
     let prevBtn = document.querySelector('#prev');
 
     /* indexing */
-    let x = 0;
-    let y = 2;
+    let l_idx = 0;
+    let c_idx = 1;
+    let r_idx = 2;
 
     /* Build images array */
     let images = document.querySelectorAll('.item');
-    const imgArr = Array.from(images);
+    // const imgArr = Array.from(images);
 
     prevBtn.onclick = (event) => {
         event.preventDefault();
 
-        images[y].classlist.remove("active");
+        images[r_idx].classList.remove("active");
 
-        if (x == 0) {
-            x = images.length - 1;
-            y--;
-        }
-        else if (y == 0) {
-            y = images.length - 1;
-            x--;
+        if (l_idx == 0) {
+            r_idx = c_idx;
+            c_idx = l_idx;
+            l_idx = images.length - 1;
         }
         else {
-            x--;
-            y--;
+            r_idx = c_idx;
+            c_idx = l_idx;
+            l_idx--;
         }
 
-        images[x].classList.add("active");
+        images[l_idx].classList.add("active");
     };
 
     nextBtn.onclick = (event) => {
         event.preventDefault();
 
-        images[x].classList.remove("active");
+        images[l_idx].classList.remove("active");
 
-        if (y >= images.length) {
-            y = 0;
-            x++;
-        }
-        else if (x >= images.length) {
-            x = 0;
-            y++;
+        if (r_idx == images.length) {
+            l_idx = c_idx;
+            c_idx = r_idx;
+            r_idx = 0;
         }
         else {
-            x++;
-            y++;
+            l_idx = c_idx;
+            c_idx = r_idx;
+            r_idx++;
         }
 
-        images[y].classList.add("active");
+        images[r_idx].classList.add("active");
     };
 
 }
