@@ -6,49 +6,71 @@ function carousel_slider() {
 
     /* indexing */
     let l_idx = 0;
-    let c_idx = 1;
+    let m_idx = 1;
     let r_idx = 2;
 
     /* Build images array */
     let images = document.querySelectorAll('.item');
-    // const imgArr = Array.from(images);
 
+    // previous button click functionality
     prevBtn.onclick = (event) => {
         event.preventDefault();
 
-        images[r_idx].classList.remove("active");
+        // remove current images class, add hidden to image that is leaving 
+        images[l_idx].classList.remove("left")
+        images[m_idx].classList.remove("middle")
+        images[r_idx].classList.remove("right")
+        images[r_idx].classList.add("hidden")
 
+        // update indexes
         if (l_idx == 0) {
-            r_idx = c_idx;
-            c_idx = l_idx;
+            r_idx = m_idx;
+            m_idx = l_idx;
             l_idx = images.length - 1;
         }
         else {
-            r_idx = c_idx;
-            c_idx = l_idx;
+            r_idx = m_idx;
+            m_idx = l_idx;
             l_idx--;
         }
 
-        images[l_idx].classList.add("active");
+        // add appropriate class based on updated indexes, remove
+        // hidden from image entering carousel and add appropriate class
+        images[r_idx].classList.add("right")
+        images[m_idx].classList.add("middle")
+        images[l_idx].classList.remove("hidden")
+        images[l_idx].classList.add("left")
+
     };
 
+    // next button click functionality
     nextBtn.onclick = (event) => {
         event.preventDefault();
 
-        images[l_idx].classList.remove("active");
+        // remove current images class, add hidden to image that is leaving 
+        images[l_idx].classList.remove("left")
+        images[m_idx].classList.remove("middle")
+        images[r_idx].classList.remove("right")
+        images[l_idx].classList.add("hidden")
 
-        if (r_idx == images.length) {
-            l_idx = c_idx;
-            c_idx = r_idx;
+        // update indexes
+        if (r_idx == images.length - 1) {
+            l_idx = m_idx;
+            m_idx = r_idx;
             r_idx = 0;
         }
         else {
-            l_idx = c_idx;
-            c_idx = r_idx;
+            l_idx = m_idx;
+            m_idx = r_idx;
             r_idx++;
         }
 
-        images[r_idx].classList.add("active");
+        // add appropriate class based on updated indexes, remove
+        // hidden from image entering carousel and add appropriate class
+        images[l_idx].classList.add("left")
+        images[m_idx].classList.add("middle")
+        images[r_idx].classList.remove("hidden")
+        images[r_idx].classList.add("right")
     };
 
 }

@@ -1,6 +1,7 @@
 /* Add some css styles based on the tutorial at javascript.info: introduction to browser events
  https://javascript.info/introduction-browser-events */
 
+ /* main page format */
 body {
     margin:40px auto;
     max-width:650px;
@@ -41,6 +42,7 @@ p {
     padding: 1%;
 }
 
+/* carousel container format */
 .carousel-holder {
     background-color: rgb(153, 153, 153);
     padding: 20px;
@@ -58,16 +60,33 @@ p {
     padding: 0px 5px;
 }
 
-.carousel-holder .block {
-    opacity: 0;
-    display: none;
+/* flex display order: [prev-btn, img1, img2, img3, next-btn] */
+#prev {
+    order: 1;
 }
 
-.carousel-holder .block.active {
-    opacity: 1;
-    display: contents;
+.left {
+    order: 2;
 }
 
+.middle {
+    order: 3;
+}
+
+.right {
+    order: 4;
+}
+
+#next {
+    order: 5;
+}
+
+/* hidden display class to hide images not active in carousel */
+.hidden {
+  display: none;  
+}
+
+/* button format */
 .button {
     color: #FFF;
     background-color: #5995DA;
