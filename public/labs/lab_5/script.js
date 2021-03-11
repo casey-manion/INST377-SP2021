@@ -1,7 +1,20 @@
 function mapInit() {
   // follow the Leaflet Getting Started tutorial here
-  map = 'DELETE ME'
-  return map;
+  
+  // declare map and set to College Park, MD
+  const mymap = L.map('mapid').setView([38.987202, -76.945999], 13);
+
+  // add tile layer
+  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1IjoibWFuY2FzZSIsImEiOiJja201NGU3cjMwYXVkMnBtc3ZhNHJjYXVkIn0.cmUXYFl0zt9sFd7aek-c3g'
+  }).addTo(mymap);
+
+  return mymap;
 }
 
 async function dataHandler(mapObjectFromFunction) {
@@ -14,7 +27,7 @@ async function dataHandler(mapObjectFromFunction) {
 
   const searchInput = document.querySelector('#input');
   const form = document.querySelector('#form');
-  const suggestions = document.querySelector('.suggestions');
+  const results = document.querySelector('.result-list');
   
   // fetch request
   const request = await fetch(endpoint)
@@ -39,21 +52,42 @@ async function dataHandler(mapObjectFromFunction) {
   // display matches found
   function displayMatches(event) {
       console.log('entered displayMatches');
-      const matchArray = findMatches(event.target.value, zipcodes);
-      const html = matchArray.map(place => {
-          const regex = new RegExp(this.value, "gi");
+      console.log(searchInput.value);
+      const matchArray = findMatches(searchInput.value, zipcodes);
+      // const marker = L.marker([38.987202, -76.945999]).addTo(mapObjectFromFunction);
 
-          return `
-              <div class="box">
-                  <li>
-                      <div class="name">${place.name}</div>
-                      <address class="address">${place.address_line_1}, ${place.address_line_2}</address>
-                      <address class="address">${place.city}, ${place.zip}</address>
-                  </li>
-              </div>
-              `;
-      }).join('');
-      suggestions.innerHTML = html;
+      matchArray.forEach((match) => {
+        let result = document.createElement('li');
+        result.classList.add('result-item');
+        result.innerHTML =
+          `<div class="message-header">${match.name}</div>
+          <div class="message-body>
+            <address class="address">${match.address_line_1}, ${match.address_line_2}</address>
+            <address class="address">${match.city}, ${match.zip}</address>
+          </div>`;
+        
+        results.append(result);
+
+        
+
+      });
+
+      // const html = matchArray.map(place => {
+      //     const regex = new RegExp(this.value, "gi");
+
+      //     return `
+      //         <!-- <div class="result-item"> -->
+      //             <li class="result-item">
+      //                 <div class="message-header">${place.name}</div>
+      //                 <div class="message-body>
+      //                   <address class="address">${place.address_line_1}, ${place.address_line_2}</address>
+      //                   <address class="address">${place.city}, ${place.zip}</address>
+      //                 </div>
+      //             </li>
+      //         <!-- </div> -->
+      //         `;
+      // }).join('');
+      // results.innerHTML = html;
   }
   
   // event listeners
