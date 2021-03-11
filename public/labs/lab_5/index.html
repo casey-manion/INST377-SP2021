@@ -18,27 +18,29 @@
 </head>
 <body>
     <div class="header">
-        <h1>Casey Manion's Lab 5</h1>
-        <h2>Zip Code Food Search</h2>
+        <h1 class="title is-1 has-text-centered">Casey Manion's Lab 5</h1>
+        <h2 class="subtitle is-5 has-text-centered">Zip Code Food Search</h2>
     </div>
 
-    <div class="column is-2">
+    <div class="columns">
         <!-- input box and suggestion field -->
-        <div class="container">
-            <form id="formElem">
+        <div class="column is-4 is-offset-1">
+            <form id="form">
                 <label for="input">Search</label>
-                <input type="text" id="input" class="input is-rounded is-small"
+                <input type="text" id="input" class="input is-rounded"
                 placeholder="ZIPCODE">
-                <button class="button is-rounded is-small" type="submit" id="button"
-                name="submit">SUBMIT</button>
+                <button class="button is-rounded" type="submit">View Results</button>
                 <ul class="suggestions">
                     <!-- RESULTS POPULATE -->
                 </ul>
             </form>
         </div>
-        
+
         <!-- map -->
-        <div class="map" id="mapid"></div>
+        <div class="column is-4 is-offset-7">
+            <div class="map" id="mapid"></div>
+        </div>
+
     </div>
     <!-- connect Javascript file -->
     <script src="script.js"></script>
