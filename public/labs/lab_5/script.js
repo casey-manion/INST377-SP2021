@@ -7,13 +7,13 @@ function mapInit() {
 async function dataHandler(mapObjectFromFunction) {
   // use your assignment 1 data handling code here
   // and target mapObjectFromFunction to attach markers
-  console.log('into dataHandler now');
+  console.log('enter dataHandler now');
+
   // API PG County Food Inspection data
   const endpoint = 'https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json';
 
   const searchInput = document.querySelector('#input');
   const form = document.querySelector('#form');
-  const btnSearch = document.querySelector('.button');
   const suggestions = document.querySelector('.suggestions');
   
   // fetch request
@@ -57,14 +57,11 @@ async function dataHandler(mapObjectFromFunction) {
   }
   
   // event listeners
-  form.addEventListener('input', displayMatches);
-  // form.addEventListener('submit', (evt) => {
-  //   displayMatches(evt)
-  // });
-  // btnSearch.addEventListener('input', (evt) => {
-  //     displayMatches(evt)
-  // });
-
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    console.log('submit fired', searchInput.value);
+    displayMatches(event)
+  });
   
 }
 
