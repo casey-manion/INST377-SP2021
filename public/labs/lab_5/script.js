@@ -45,7 +45,7 @@ async function dataHandler(mapObjectFromFunction) {
   function findMatches(targetZip, zipcodes) {
       return zipcodes.filter(place => {
         const regex = new RegExp(targetZip, "gi");
-        return place.zip.match(regex)
+        return (place.zip.match(regex) && place.geocoded_column_1)
       });
   }
   
@@ -54,40 +54,30 @@ async function dataHandler(mapObjectFromFunction) {
       console.log('entered displayMatches');
       console.log(searchInput.value);
       const matchArray = findMatches(searchInput.value, zipcodes);
-      // const marker = L.marker([38.987202, -76.945999]).addTo(mapObjectFromFunction);
 
-      matchArray.forEach((match) => {
+      const fiveArr = matchArray.slice(0, 5);
+      console.log(fiveArr.length);
+
+      fiveArr.forEach((match) => {
+        // get coordinates for each place, remember to reverse them since API
+        const coords = match.geocoded_column_1.coordinates;
+        const marker = L.marker([coords[1], coords[0]]).addTo(mapObjectFromFunction);
+
         let result = document.createElement('li');
         result.classList.add('result-item');
         result.innerHTML =
           `<div class="message-header">${match.name}</div>
           <div class="message-body>
-            <address class="address">${match.address_line_1}, ${match.address_line_2}</address>
-            <address class="address">${match.city}, ${match.zip}</address>
+            <address class="address"></address>
+            <address class="address">${match.address_line_1}, ${match.address_line_2}
+              </br>${match.city}, ${match.zip}</address>
+            
           </div>`;
         
         results.append(result);
-
-        
-
       });
-
-      // const html = matchArray.map(place => {
-      //     const regex = new RegExp(this.value, "gi");
-
-      //     return `
-      //         <!-- <div class="result-item"> -->
-      //             <li class="result-item">
-      //                 <div class="message-header">${place.name}</div>
-      //                 <div class="message-body>
-      //                   <address class="address">${place.address_line_1}, ${place.address_line_2}</address>
-      //                   <address class="address">${place.city}, ${place.zip}</address>
-      //                 </div>
-      //             </li>
-      //         <!-- </div> -->
-      //         `;
-      // }).join('');
-      // results.innerHTML = html;
+      const panCoords = matchArray[0].geocoded_column_1.coordinates;
+      mapObjectFromFunction.panTo([panCoords[1], panCoords[0]], 13);
   }
   
   // event listeners
