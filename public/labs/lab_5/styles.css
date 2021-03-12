@@ -7,7 +7,6 @@ body {
 h1, h2, h3 {
     line-height: 1.2;
     margin: 30px;
-    color: purple;
 }
 
 .column {
@@ -20,7 +19,7 @@ h1, h2, h3 {
 
 #mapid {
     height: 480px;
-    border: 5px dashed purple;
+    border: 5px dashed rgb(124, 0, 124);
 }
 
 .list-header {
