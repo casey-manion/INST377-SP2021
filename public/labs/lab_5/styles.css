@@ -7,14 +7,20 @@ body {
 h1, h2, h3 {
     line-height: 1.2;
     margin: 30px;
+    color: purple;
 }
 
 .column {
     margin: 0px 100px;
 }
 
+.button {
+    margin: 10px;
+}
+
 #mapid {
     height: 480px;
+    border: 5px dashed purple;
 }
 
 .list-header {
