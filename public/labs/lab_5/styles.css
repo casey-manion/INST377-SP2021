@@ -1,7 +1,12 @@
+/* basic page styles */
+html, body {
+    background-color: #fd9e68;
+}
+
 body {
     line-height: 1.6;
     font-size: 18px;
-    color: #b3b3b3;
+    color: #292929;
     padding: 0 10px;
 }
 h1, h2, h3 {
@@ -9,12 +14,13 @@ h1, h2, h3 {
     margin: 30px;
 }
 
+/* column styles */
 .column {
     margin: 0px 100px;
 }
 
 .button {
-    margin: 10px;
+    margin: 10px 0px;
 }
 
 #mapid {
@@ -22,11 +28,7 @@ h1, h2, h3 {
     border: 5px dashed rgb(124, 0, 124);
 }
 
-.list-header {
-    font-weight: 600;
-    font-size: 1.25 rem;
-}
-
+/* result list styles */
 .result-item {
     border-radius: 8px;
     color: #111;
