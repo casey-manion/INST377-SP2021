@@ -25,19 +25,25 @@ async function dataHandler(mapObjectFromFunction) {
   // API PG County Food Inspection data
   const endpoint = 'https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json';
 
+  // const variables declarations
   const searchInput = document.querySelector('#input');
   const form = document.querySelector('#form');
   const results = document.querySelector('.result-list');
-  
+
+  // add markers layer
+  const markerLayer = L.layerGroup().addTo(mapObjectFromFunction);
+
   // fetch request
   const request = await fetch(endpoint)
   
+  // check successful request
   if (request.ok) {
     console.log('endpoint fetched');
   }
   else {
     alert("HTTP-Error: " + request.status);
   }
+
   // empty array for data
   const zipcodes = await request.json();
   
@@ -55,14 +61,16 @@ async function dataHandler(mapObjectFromFunction) {
       console.log(searchInput.value);
       const matchArray = findMatches(searchInput.value, zipcodes);
 
-      const fiveArr = matchArray.slice(0, 5);
+      // populate result list array (fiveArr) of length 5
+      fiveArr = matchArray.slice(0, 5);
       console.log(fiveArr.length);
 
       fiveArr.forEach((match) => {
         // get coordinates for each place, remember to reverse them since API
         const coords = match.geocoded_column_1.coordinates;
-        const marker = L.marker([coords[1], coords[0]]).addTo(mapObjectFromFunction);
-
+        const marker = L.marker([coords[1], coords[0]]).addTo(markerLayer);
+        
+        // add HTML element and innerHTML for result list items
         let result = document.createElement('li');
         result.classList.add('result-item');
         result.innerHTML =
@@ -76,17 +84,40 @@ async function dataHandler(mapObjectFromFunction) {
         
         results.append(result);
       });
+
+      // add markers to map
       const panCoords = matchArray[0].geocoded_column_1.coordinates;
       mapObjectFromFunction.panTo([panCoords[1], panCoords[0]], 13);
   }
   
-  // event listeners
+  // backspace/delete clears result list, markers, and resets map
+  function clearResults(e) {
+    if (e.keyCode === 8) {
+      console.log('delete pressed');
+      
+      // remove results list
+      while (results.firstChild) {
+        results.removeChild(results.firstChild);
+      }
+
+      // remove markers
+      markerLayer.clearLayers();
+      
+      // reset pan view
+      mapObjectFromFunction = mapObjectFromFunction.panTo([38.987202, -76.945999], 13);
+    }  
+  };
+
+
+  // submit event listener
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     console.log('submit fired', searchInput.value);
     displayMatches(event)
   });
-  
+
+  // backspace/delete event listener
+  searchInput.addEventListener('keydown', clearResults);
 }
 
 async function windowActions() {
