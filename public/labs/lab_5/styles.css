@@ -36,6 +36,15 @@ h1, h2, h3 {
     margin: 10px;
 }
 
+.message-body {
+    padding: 0px;
+}
+
+.no-result {
+    text-align: center;
+    padding: 5px;
+}
+
 .address {
     text-align: center;
     padding: 15px;

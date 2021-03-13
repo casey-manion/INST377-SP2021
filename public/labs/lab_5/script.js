@@ -65,25 +65,34 @@ async function dataHandler(mapObjectFromFunction) {
       fiveArr = matchArray.slice(0, 5);
       console.log(fiveArr.length);
 
-      fiveArr.forEach((match) => {
-        // get coordinates for each place, remember to reverse them since API
-        const coords = match.geocoded_column_1.coordinates;
-        const marker = L.marker([coords[1], coords[0]]).addTo(markerLayer);
-        
-        // add HTML element and innerHTML for result list items
-        let result = document.createElement('li');
-        result.classList.add('result-item');
-        result.innerHTML =
-          `<div class="message-header">${match.name}</div>
-          <div class="message-body>
-            <address class="address"></address>
-            <address class="address">${match.address_line_1}, ${match.address_line_2}
-              </br>${match.city}, ${match.zip}</address>
-            
-          </div>`;
-        
-        results.append(result);
-      });
+      if (fiveArr.length < 1) {
+        let noMatch = document.createElement('li');
+        noMatch.classList.add('result-item');
+        noMatch.innerHTML = `<div class="message-body no-result">No matches found.</div>`;
+
+        results.append(noMatch);
+      }
+      else {
+        fiveArr.forEach((match) => {
+          // get coordinates for each place, remember to reverse them since API
+          const coords = match.geocoded_column_1.coordinates;
+          const marker = L.marker([coords[1], coords[0]]).addTo(markerLayer);
+          
+          // add HTML element and innerHTML for result list items
+          let result = document.createElement('li');
+          result.classList.add('result-item');
+          result.innerHTML =
+            `<div class="message-header">${match.name}</div>
+            <div class="message-body">
+              <address class="address"></address>
+              <address class="address">${match.address_line_1}, ${match.address_line_2}
+                </br>${match.city}, ${match.zip}</address>
+              
+            </div>`;
+          
+          results.append(result);
+        });
+      };
 
       // add markers to map
       const panCoords = matchArray[0].geocoded_column_1.coordinates;
